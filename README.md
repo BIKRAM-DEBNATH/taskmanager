@@ -193,9 +193,7 @@ All endpoints prefixed with `/api`.
 
 Issues? [Open one](https://github.com/owner/team-task-manager/issues).
 
-## 📄 License
 
-This project is [MIT licensed](LICENSE).
 
 ---
 
