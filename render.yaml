@@ -1,0 +1,37 @@
+# render.yaml — Deploy both backend and frontend to Render
+# https://render.com/docs/blueprint-spec
+
+services:
+  # ── Backend (Node/Express) ───────────────────────────────
+  - type: web
+    name: teamflow-api
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGO_URI
+        sync: false          # Set manually in Render dashboard
+      - key: JWT_SECRET
+        generateValue: true  # Render auto-generates a secure value
+      - key: CLIENT_URL
+        sync: false          # Set to your frontend Render URL after first deploy
+
+  # ── Frontend (Static Site) ───────────────────────────────
+  - type: web
+    name: teamflow-app
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        sync: false          # Set to your backend Render URL after first deploy
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

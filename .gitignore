@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+npm-debug.log*
+
+# Real secrets — never commit
+.env
+.env.local
+.env.production.local
+.env.*.local
+
+# Keep: .env.example, .env.development (localhost values only)
+# Ignore real production env — set vars in your deploy dashboard
+frontend/.env.production
