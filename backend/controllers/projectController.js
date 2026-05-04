@@ -47,7 +47,7 @@ const getProjects = async (req, res) => {
     if (req.user.role === 'admin') {
       query = Project.find();
     } else {
-      query = Project.find({ members: req.user._id });
+      query = Project.find({ members: { $in: [req.user._id] } });
     }
 
     const projects = await query
