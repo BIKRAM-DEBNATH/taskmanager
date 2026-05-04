@@ -64,7 +64,7 @@ export default function Signup() {
               type="text"
               name="name"
               className="form-input"
-              placeholder="Jane Smith"
+              placeholder="your name"
               value={form.name}
               onChange={handleChange}
             />
