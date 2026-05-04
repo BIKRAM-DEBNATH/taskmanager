@@ -55,7 +55,7 @@ export default function Signup() {
           <div className="alert alert-error">
             <span>⚠</span> {error}
           </div>
-        )}
+        )};
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
