@@ -197,5 +197,5 @@ Issues? [Open one](https://github.com/owner/team-task-manager/issues).
 
 ---
 
-*Built with ❤️ for modern teams. Questions? [@owner](https://github.com/owner).*
+*Built with ❤️ for modern teams. Questions? mail-bikramdebnath905@gmail.com.*
 
