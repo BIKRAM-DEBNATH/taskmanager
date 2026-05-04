@@ -10,10 +10,14 @@ const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 
+app.use((req, res, next) => {
+  console.log("🌍 Incoming Origin:", req.headers.origin);
+  next();
+});
 // ── CORS ────────────────────────────────────────────────────────────────────
 // Read allowed origins from CLIENT_URL env var (comma-separated for multiple).
 // Falls back to localhost for local dev so the app still works without .env.
-const rawOrigins = process.env.CLIENT_URL || 'http://localhost:5173,http://localhost:3000';
+const rawOrigins = 'https://taskmanager-1-6fhi.onrender.com,https://taskmanager-eight-flame-52.vercel.app,http://localhost:5173,http://localhost:3000';
 const allowedOrigins = rawOrigins
   .split(',')
   .map((o) => o.trim())
@@ -21,14 +25,17 @@ const allowedOrigins = rawOrigins
 
 const corsOptions = {
   origin: (origin, callback) => {
-    // Allow requests with no origin (curl, Postman, server-to-server)
+    // allow Postman / server requests
     if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) return callback(null, true);
-    callback(new Error(`CORS: origin "${origin}" not allowed`));
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      console.log("❌ CORS Blocked:", origin);
+      return callback(null, false); // ✅ IMPORTANT FIX
+    }
   },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
 };
 
 // Handle preflight OPTIONS for all routes first
